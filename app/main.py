@@ -17,12 +17,14 @@ app = FastAPI(
 # header on requests the browser treats as needing credentials-aware handling.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.cors_origins_list,
+    allow_origins=[
+        "http://localhost:3000",  # local dev
+        "https://ecommerce-delta-rouge-32.vercel.app",  # your Vercel frontend
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 app.include_router(auth.router)
 app.include_router(categories.router)
 app.include_router(products.router)
